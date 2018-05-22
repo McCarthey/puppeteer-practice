@@ -1,0 +1,8 @@
+{
+  "name": "puppeteer-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/McCarthey/puppeteer-practice.git",
+  "author": "Dean <mccarthey123@outlook.com>",
+  "license": "MIT"
+}
