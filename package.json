@@ -9,6 +9,7 @@
   "author": "mccarthey",
   "license": "MIT",
   "dependencies": {
+    "koa": "^2.5.2",
     "puppeteer": "^1.4.0"
   },
   "bin": {
