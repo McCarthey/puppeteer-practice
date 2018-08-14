@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer")
 const devices = require("puppeteer/DeviceDescriptors")
 const path = process.cwd()
 
-let pageUrl = 'https://www.loveblock.one/#/airdrop'
+let pageUrl = 'http://localhost:39150/ddd.html#/airdrop'
 
 function handleArgv(argv) {
     console.log(argv)
