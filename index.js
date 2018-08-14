@@ -26,7 +26,7 @@ async function screenshot(device) {
     await page.setViewport({ width: 1920, height: 1080 })
     await page.goto(pageUrl, { waitUntil: "networkidle2" })
     await page.screenshot({
-        path: "./generate/hb.jpeg",
+        path: "/puppeteer-practice/generate/hb.jpeg",
         quality: 60,
         fullPage: true
     })
