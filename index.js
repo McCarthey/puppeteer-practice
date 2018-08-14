@@ -5,6 +5,7 @@ const devices = require("puppeteer/DeviceDescriptors")
 const path = process.cwd()
 const program = require('commander')
 const inquirer = require('inquirer')
+const chalk = require('chalk')
 
 // let pageUrl = 'http://localhost:39150/ddd.html#/airdrop'
 
@@ -36,7 +37,7 @@ async function screenshot(url, device) {
         quality: 60,
         fullPage: true
     })
-    console.log(`image is printed you can find it in /d/puppeteer-practice/generate/`)
+    console.log(`${chalk.bgGreen(' Success! ')} Image is printed you can find it in ${chalk.yellow('/d/puppeteer-practice/generate/')}`)
     await browser.close()
 }
 
