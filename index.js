@@ -32,11 +32,11 @@ async function screenshot(url, device) {
     await page.setViewport({ width: 1920, height: 1080 })
     await page.goto(url, { waitUntil: "networkidle2" })
     await page.screenshot({
-        path: "/puppeteer-practice/generate/hb.jpeg",
+        path: `/puppeteer-practice/generate/print_${+new Date()}.jpeg`,
         quality: 60,
         fullPage: true
     })
-    console.log(`${url} is printed!`)
+    console.log(`image is printed you can find it in /d/puppeteer-practice/generate/`)
     await browser.close()
 }
 
