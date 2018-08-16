@@ -14,7 +14,6 @@ function handleArgv(argv) {
         .version('0.0.1')
         .option('-s')
         .parse(process.argv)
-    console.log(program.list);
 
     inquirer.prompt([{
             type: 'input',
@@ -22,7 +21,7 @@ function handleArgv(argv) {
             message: 'input url your want to print'
         }])
         .then(answers => {
-            console.log(answers.printUrl)
+            // console.log(answers.printUrl)
             screenshot(answers.printUrl)
         })
 }
