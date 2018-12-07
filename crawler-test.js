@@ -19,7 +19,7 @@ async function main(url) {
 	
 	await page.waitFor(10000)
 	
-	let writerStream = fs.createWriteStream('tags.json');
+	let writerStream = fs.createWriteStream('tags_native.json');
 	writerStream.write(JSON.stringify(result), 'UTF8');
 	writerStream.end();
 	
@@ -42,12 +42,12 @@ async function craw(iframe, id, result) {
 	console.log(res)
 	// 格式化爬取的数据
 	let title = res.shift() // 第一项是标题
-	title = title.replace(/:/g, '')
-	const resObj = {
-	    title,
-	    tags: res
-	}
-	result.push(resObj)
+	// title = title.replace(/:/g, '')
+	// const resObj = {
+	//     title,
+	//     tags: res
+	// }
+	result.push(res)
 }
 
 main(pageUrl)
