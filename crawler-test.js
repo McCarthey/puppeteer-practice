@@ -12,17 +12,23 @@ async function main(url) {
 	// await page.waitFor(2000);
 	let iframe = await page.frames().find(f => f.name() === 'mainFrame');
 	const eleGroup = ['u974_text', 'u976_text', 'u977_text', 'u978_text', 'u979_text', 'u980_text']
+	const result = []
 	eleGroup.forEach(async id => {
-		await craw(iframe, id)
+		await craw(iframe, id, result)
 	})
 	
-	await page.waitFor(15000)
+	await page.waitFor(10000)
+	
+	let writerStream = fs.createWriteStream('tags.json');
+	writerStream.write(JSON.stringify(result), 'UTF8');
+	writerStream.end();
+	
 	browser.close()
 }
 
-async function craw(iframe, id) {
+async function craw(iframe, id, result) {
 	let texts = await iframe.$(`#${id}`)
-	const result = await iframe.evaluate(e => {
+	const res = await iframe.evaluate(e => {
 	    const res = []
 	    let arr = e.childNodes
 	    for (let i = 0; i < arr.length; i++) {
@@ -33,18 +39,15 @@ async function craw(iframe, id) {
 	    return res
 	}, texts)
 
-	console.log(result)
+	console.log(res)
 	// 格式化爬取的数据
-	let title = result.shift() // 第一项是标题
-	const resultObj = {
-	    title,
-	    tags: result
-	}
+	let title = res.shift() // 第一项是标题
 	title = title.replace(/:/g, '')
-
-	let writerStream = fs.createWriteStream(`${title}.json`);
-	writerStream.write(JSON.stringify(resultObj), 'UTF8');
-	writerStream.end();
+	const resObj = {
+	    title,
+	    tags: res
+	}
+	result.push(resObj)
 }
 
 main(pageUrl)
