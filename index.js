@@ -2,7 +2,7 @@
 const fs = require('fs')
 const puppeteer = require("puppeteer")
 const devices = require("puppeteer/DeviceDescriptors")
-const path = process.cwd()
+const path = require('path')
 const program = require('commander')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
@@ -20,10 +20,28 @@ function handleArgv(argv) {
         message: 'input url your want to print'
     }])
         .then(answers => {
-            // console.log(answers.printUrl)
             screenshot(answers.printUrl)
         })
 }
+
+async function autoScroll(page) {
+    await page.evaluate(async () => {
+        await new Promise((resolve, reject) => {
+            let scrollHeight = 0
+            let distance = 100
+            const timer = setInterval(() => {
+                const maxHeight = document.body.scrollHeight
+                window.scrollBy(0, distance)
+                scrollHeight += distance
+                if (scrollHeight >= maxHeight) {
+                    clearInterval(timer)
+                    resolve()
+                }
+            }, 100)
+        })
+    })
+}
+
 async function screenshot(url, device) {
     try {
         fs.accessSync('./generate');
@@ -37,12 +55,14 @@ async function screenshot(url, device) {
     await page.setViewport({ width: 1920, height: 1080 })
     await page.goto(url, { waitUntil: "networkidle2" })
     await page.waitFor(5000)
+    const title = await page.title()
+    console.log('the website\'s title is: ', title)
+    await autoScroll(page)
     await page.screenshot({
-        path: `./generate/print_${+new Date()}.jpeg`,
-        quality: 60,
+        path: `./generate/${title}_${+new Date()}.jpeg`,
         fullPage: true
     })
-    console.log(`${chalk.bgGreen(' Success! ')} Image is printed you can find it in ${chalk.yellow(__dirname)}`)
+    console.log(`${chalk.bgGreen(' Success! ')} Image is printed. you can find it in ${chalk.yellow(path.join(__dirname, 'generate'))}`)
     await browser.close()
 }
 
