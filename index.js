@@ -43,18 +43,18 @@ async function autoScroll(page) {
 }
 
 function loadAnimation() {
-    return function () {
+    return function (interval) {
         const P = ["\\", "|", "/", "-"];
         let x = 0;
         return setInterval(() => {
             process.stdout.write("\r" + P[x++]);
             x &= 3;
-        }, 100);
+        }, interval);
     }
 }
 
 async function screenshot(url, device) {
-    let twirlTimer = loadAnimation()()
+    let twirlTimer = loadAnimation()(100)
     try {
         fs.accessSync('./generate');
         console.log('Please wait for a moment');
