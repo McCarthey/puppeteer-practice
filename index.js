@@ -42,7 +42,19 @@ async function autoScroll(page) {
     })
 }
 
+function loadAnimation() {
+    return function () {
+        const P = ["\\", "|", "/", "-"];
+        let x = 0;
+        return setInterval(() => {
+            process.stdout.write("\r" + P[x++]);
+            x &= 3;
+        }, 100);
+    }
+}
+
 async function screenshot(url, device) {
+    let twirlTimer = loadAnimation()()
     try {
         fs.accessSync('./generate');
         console.log('Please wait for a moment');
@@ -62,6 +74,7 @@ async function screenshot(url, device) {
         path: `./generate/${title}_${+new Date()}.jpeg`,
         fullPage: true
     })
+    clearInterval(twirlTimer)
     console.log(`${chalk.bgGreen(' Success! ')} Image is printed. you can find it in ${chalk.yellow(path.join(__dirname, 'generate'))}`)
     await browser.close()
 }
