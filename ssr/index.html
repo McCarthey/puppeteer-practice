@@ -21,8 +21,11 @@ function renderPosts(posts, container) {
 
 (async() => {
   const container = document.querySelector('#container');
-  const posts = await fetch('./posts.json').then(resp => resp.json());
-  renderPosts(posts, container);
+  const PRE_RENDERED = container.querySelector('#posts');
+  if(!PRE_RENDERED) {
+    const posts = await fetch('./posts.json').then(resp => resp.json());
+    renderPosts(posts, container);
+  }
 })();
 </script>
 </html>

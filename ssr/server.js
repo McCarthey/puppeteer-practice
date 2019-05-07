@@ -6,7 +6,7 @@ const app = express()
 
 app.get('/', async (req, res, next) => {
     const { html, ttRenderMs } = await ssr('http://localhost:8099/index.html')
-    res.set('Server-Timing', `Prerender;dur=${ttRenderMs}`)
+    res.set('Server-Timing', `Prerender;dur=${ttRenderMs};desc="Headless render time (ms)"`)
     return res.status(200).send(html)
 })
 
