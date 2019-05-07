@@ -14,6 +14,20 @@ async function ssr(url) {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
 
+    // 拦截网络请求 
+    await page.setRequestInterception(true)
+
+    page.on('request', req => {
+        // 忽略掉不会构建dom的请求，如图片，样式，和音视频等
+        const whitelist = ['document', 'xhr', 'fetch', 'script']
+        if(!whitelist.includes(req.resourceType)) {
+            return req.abort()
+        }
+
+        req.continue() // 其他请求继续
+    })
+
+
     try {
 
         await page.goto(url, { waitUntil: 'networkidle0' })
