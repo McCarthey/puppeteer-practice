@@ -17,7 +17,7 @@ async function ssr(url) {
     try {
 
         await page.goto(url, { waitUntil: 'networkidle0' })
-        await page.waitForSelector('.App')
+        await page.waitForSelector('#posts')
     } catch (e) {
         console.error(e)
         throw new Error(chalk.red(`go to page ${url} timeout`))

@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const app = express()
 
 app.get('/', async (req, res, next) => {
-    const { html, ttRenderMs } = await ssr('http://118.24.146.34/index.html')
+    const { html, ttRenderMs } = await ssr('http://localhost:8099/index.html')
     res.set('Server-Timing', `Prerender;dur=${ttRenderMs}`)
     return res.status(200).send(html)
 })
