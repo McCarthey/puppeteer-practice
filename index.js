@@ -61,20 +61,24 @@ async function screenshot(url, device) {
     } catch (err) {
         fs.mkdirSync('./generate')
     }
-    const browser = await puppeteer.launch({ headless: false })
-    const page = await browser.newPage()
-    // await page.emulate(devices['iPhone 6'])
-    await page.setViewport({ width: 1920, height: 1080 })
-    await page.goto(url, { waitUntil: "networkidle2" })
-    await page.waitFor(5000)
-    const title = await page.title()
-    console.log('the website\'s title is: ', title)
-    await autoScroll(page)
-    await page.screenshot({
-        path: `./generate/${title}_${+new Date()}.jpeg`,
-        fullPage: true
-    })
-    clearInterval(twirlTimer)
+    try {
+        const browser = await puppeteer.launch({ headless: false })
+        const page = await browser.newPage()
+        // await page.emulate(devices['iPhone 6'])
+        await page.setViewport({ width: 1920, height: 1080 })
+        await page.goto(url, { waitUntil: "networkidle2" })
+        await page.waitFor(5000)
+        // const title = await page.title()
+        // console.log('the website\'s title is: ', title)
+        await autoScroll(page)
+        await page.screenshot({
+            path: `./generate/${+new Date()}.jpg`,
+            fullPage: true
+        })
+        clearInterval(twirlTimer)
+    } catch {
+        await browser.close()
+    }
     console.log(`${chalk.bgGreen(' Success! ')} Image is printed. you can find it in ${chalk.yellow(path.join(__dirname, 'generate'))}`)
     await browser.close()
 }
