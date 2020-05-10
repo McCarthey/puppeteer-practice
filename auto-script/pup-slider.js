@@ -16,8 +16,8 @@ const url = 'https://login.taobao.com/member/login.jhtml?redirectURL=https%3A%2F
     await page.waitFor(1000)
     // await page.click('.forget-pwd.J_Quick2Static', { delay: 300 })
 
-    await page.type('#TPL_username_1', 'adm1n@qq.com', { delay: 100 })
-    await page.type('#TPL_password_1', '123123123', { delay: 100 })
+    await page.type('#fm-login-id', 'admin', { delay: 100 })
+    await page.type('#fm-login-password', '123123123', { delay: 100 })
     // await page.click('#J_SubmitStatic', { delay: 500 })
     page.mouse.click(1190, 430, { delay: 2000 })
     await page.mouse.down()
