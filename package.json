@@ -2,7 +2,8 @@
   "name": "puppeteer-screenshot",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "skeleton": "skeleton -c ./skeleton.config.json"
   },
   "repository": "https://github.com/McCarthey/puppeteer-practice.git",
   "author": "mccarthey",
@@ -17,5 +18,8 @@
   },
   "bin": {
     "shot": "./index.js"
+  },
+  "devDependencies": {
+    "awesome-skeleton": "^0.1.4"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "pageName": "test",
+  "pageUrl": "https://www.thesprucepets.com",
+  "openRepeatList": false,
+  "device": "iPhone X",
+  "minGrayBlockWidth": 30,
+  "minGrayPseudoWidth": 10,
+  "debug": true,
+  "debugTime": 3000
+}
