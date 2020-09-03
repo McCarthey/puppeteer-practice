@@ -14,7 +14,7 @@
     "express": "^4.16.4",
     "inquirer": "^6.1.0",
     "koa": "^2.5.2",
-    "puppeteer": "^1.4.0"
+    "puppeteer": "^1.13.0"
   },
   "bin": {
     "shot": "./index.js"
